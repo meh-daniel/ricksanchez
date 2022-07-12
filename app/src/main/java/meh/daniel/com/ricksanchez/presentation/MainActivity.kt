@@ -7,12 +7,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Display
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import meh.daniel.com.ricksanchez.App
 import meh.daniel.com.ricksanchez.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
+
+    private val charactersAdapter = CharactersAdapter()
 
     private val mainViewModel : MainViewModel by viewModels {
         MainViewModelFactory(App.charactersRepository)
@@ -23,8 +26,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         observeViewModel()
-
         getDisplaySize()
+        initRecyclerView()
+    }
+
+    private fun observeViewModel() {
+        mainViewModel.charters.observe(this) {
+            Log.d("xxx", "data: ${it}")
+        }
     }
 
     private fun getDisplaySize() : Int{
@@ -35,13 +44,13 @@ class MainActivity : AppCompatActivity() {
         val height = convertPixelsToDp(this, screenHeight.toFloat())
         return height.toInt() / 100
     }
-
     private fun convertPixelsToDp(context: Context, pixels: Float) =
         pixels / context.resources.displayMetrics.density
 
-    private fun observeViewModel() {
-        mainViewModel.charters.observe(this) {
-            Log.d("xxx", "data: ${it}")
-        }
+    private fun initRecyclerView() {
+        binding.rvCharacters.adapter = charactersAdapter
+        binding.rvCharacters.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }
+
 }
