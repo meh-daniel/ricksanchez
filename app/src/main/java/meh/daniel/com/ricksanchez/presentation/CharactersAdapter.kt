@@ -16,7 +16,10 @@ class CharactersAdapter : ListAdapter<CharactersNW.Result, RecyclerView.ViewHold
     }
 }
 
-
+sealed class CharactersUI{
+    data class Character(val urlAvatar: String, val name: String, val gender: String)
+    data class Button(val title: String)
+}
 
 val weatherDiffUtil = object : DiffUtil.ItemCallback<CharactersNW.Result>() {
     override fun areItemsTheSame(
