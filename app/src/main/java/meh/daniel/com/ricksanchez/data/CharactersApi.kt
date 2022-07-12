@@ -1,6 +1,6 @@
 package meh.daniel.com.ricksanchez.data
 
-import meh.daniel.com.ricksanchez.data.model.CharactersNw
+import meh.daniel.com.ricksanchez.data.model.CharactersNW
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -20,6 +20,6 @@ interface CharactersApi {
     }
 
     @GET("character")
-    suspend fun getCharacters() : CharactersNw
+    suspend fun getCharacters() : CharactersNW
 
 }
