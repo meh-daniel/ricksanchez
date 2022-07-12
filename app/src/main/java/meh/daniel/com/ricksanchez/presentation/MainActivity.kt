@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         mainViewModel.charters.observe(this) {
-            Log.d("xxx", "data: ${it}")
+            charactersAdapter.submitList(it)
         }
     }
 
