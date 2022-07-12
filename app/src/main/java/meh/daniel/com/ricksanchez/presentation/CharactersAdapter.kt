@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import meh.daniel.com.ricksanchez.data.model.CharactersNW
+import meh.daniel.com.ricksanchez.databinding.ItemButtonBinding
 import meh.daniel.com.ricksanchez.databinding.ItemCharacterBinding
 
 class CharactersAdapter : ListAdapter<CharactersNW.Result, RecyclerView.ViewHolder>(weatherDiffUtil) {
@@ -32,6 +33,8 @@ class CharacterViewHolder(private val binding: ItemCharacterBinding) : RecyclerV
             .into(binding.ivAvatar)
     }
 }
+
+class ButtonViewHolder(private val binding: ItemButtonBinding) : RecyclerView.ViewHolder(binding.root)
 
 val weatherDiffUtil = object : DiffUtil.ItemCallback<CharactersNW.Result>() {
     override fun areItemsTheSame(
