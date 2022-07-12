@@ -3,7 +3,7 @@ package meh.daniel.com.ricksanchez.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Characters(
+data class CharactersNw(
     @SerializedName("info")
     val info: Info,
     @SerializedName("results")
