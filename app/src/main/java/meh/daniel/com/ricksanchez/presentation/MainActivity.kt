@@ -2,7 +2,6 @@ package meh.daniel.com.ricksanchez.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import meh.daniel.com.ricksanchez.App
@@ -12,7 +11,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
 
-    private val charactersAdapter = CharactersAdapter(::onClickItemButtonLoad)
+    private val charactersAdapter = CharactersAdapter(::onClickItemButton)
 
     private val mainViewModel : MainViewModel by viewModels {
         MainViewModelFactory(App.charactersRepository)
@@ -32,10 +31,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun onClickItemButtonLoad(flag: Int) : Int {
+    private fun onClickItemButton(flag: Boolean) : Boolean {
         mainViewModel.createNewCharacterNumber()
         mainViewModel.getCharacter()
-        return Log.d("xxx", flag.toString())
+        return flag
     }
 
     private fun initRecyclerView() {

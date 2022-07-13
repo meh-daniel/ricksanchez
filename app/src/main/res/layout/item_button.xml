@@ -8,16 +8,11 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bLoad"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="24dp"
-        android:textAllCaps="true"
-        android:textSize="16dp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/load" />
+        tools:text="@string/load"
+        style="@style/itemButtonStyle"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

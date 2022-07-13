@@ -9,7 +9,7 @@ import meh.daniel.com.ricksanchez.databinding.ItemCharacterBinding
 import meh.daniel.com.ricksanchez.presentation.modelUI.CharactersUI
 import meh.daniel.com.ricksanchez.presentation.modelUI.ListItem
 
-class CharactersAdapter(val getIncrementFlag: (Int) -> Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CharactersAdapter(private val getFlag: (Boolean) -> Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items = mutableListOf<ListItem>()
 
@@ -21,9 +21,9 @@ class CharactersAdapter(val getIncrementFlag: (Int) -> Int) : RecyclerView.Adapt
             }
             ListItem.Type.BUTTON_TYPE.ordinal -> {
                 val binding = ItemButtonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                ButtonViewHolder(binding, getIncrementFlag)
+                ButtonViewHolder(binding, getFlag)
             }
-            else ->  throw IllegalArgumentException("fuck onCreateViewHolder")
+            else ->  throw IllegalArgumentException("IllegalArgumentException in onCreateViewHolder")
         }
     }
 
@@ -31,7 +31,7 @@ class CharactersAdapter(val getIncrementFlag: (Int) -> Int) : RecyclerView.Adapt
         when(holder){
             is CharacterViewHolder -> holder.bind(items[position] as CharactersUI.Character)
             is ButtonViewHolder-> holder.bind(items[position] as CharactersUI.Button)
-            else -> throw Exception(" Unknown view type exception")
+            else -> throw Exception("onBindViewHolder unknown view type exception")
         }
     }
 
@@ -59,12 +59,12 @@ class CharacterViewHolder(private val binding: ItemCharacterBinding) : RecyclerV
     }
 }
 
-class ButtonViewHolder(private val binding: ItemButtonBinding, val getIncrementFlag: (Int) -> Int) : RecyclerView.ViewHolder(binding.root){
+class ButtonViewHolder(private val binding: ItemButtonBinding, val getFlag: (Boolean) -> Boolean) : RecyclerView.ViewHolder(binding.root){
     fun bind(item: CharactersUI.Button){
         binding.bLoad.text = item.titleName
         binding.bLoad.setOnClickListener {
             if (bindingAdapterPosition == RecyclerView.NO_POSITION) return@setOnClickListener
-            getIncrementFlag(1)
+            getFlag(true)
         }
     }
 }
