@@ -10,32 +10,41 @@ import meh.daniel.com.ricksanchez.presentation.modelUI.ListItem
 
 class MainViewModel(private val repository: CharactersRepository) : ViewModel() {
 
+    private var _charterNumber : Int = 1
+
     private val _charters : MutableLiveData<List<ListItem>> = MutableLiveData()
     val charters : LiveData<List<ListItem>> get() = _charters
 
     init {
-        viewModelScope.launch(Dispatchers.IO){
+        getCharacter()
+    }
+
+    fun getCharacter() {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val characters = repository.getCharacters()
                 var listItems = mutableListOf<ListItem>()
-                if (characters.results != null){
-                    for (i in characters.results.indices){
-                        listItems.add(
-                            CharactersUI.Character(
-                                "${characters.results[i].gender}",
-                                "${characters.results[i].image}",
-                                "${characters.results[i].name}"
-                            )
+                if (characters.results != null) {
+                    listItems.add(
+                        CharactersUI.Character(
+                            "${characters.results[_charterNumber].gender}",
+                            "${characters.results[_charterNumber].image}",
+                            "${characters.results[_charterNumber].name}"
                         )
-                    }
+                    )
+                    listItems.add(CharactersUI.Button("next Load"))
                 }
-                listItems.add(CharactersUI.Button("NetLoad"))
                 _charters.postValue(listItems)
-            } catch (e : Throwable){
+            } catch (e: Throwable) {
                 Log.e("ViewModelLog", "error in launcher MainViewModel", e)
             }
         }
     }
+
+    fun createNewCharacterNumber(){
+        _charterNumber++
+    }
+
 }
 
 class MainViewModelFactory(private val repository: CharactersRepository) : ViewModelProvider.Factory{

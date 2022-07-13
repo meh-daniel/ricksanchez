@@ -9,7 +9,7 @@ import meh.daniel.com.ricksanchez.databinding.ItemCharacterBinding
 import meh.daniel.com.ricksanchez.presentation.modelUI.CharactersUI
 import meh.daniel.com.ricksanchez.presentation.modelUI.ListItem
 
-class CharactersAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CharactersAdapter(val getIncrementFlag: (Int) -> Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items = mutableListOf<ListItem>()
 
@@ -21,7 +21,7 @@ class CharactersAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
             ListItem.Type.BUTTON_TYPE.ordinal -> {
                 val binding = ItemButtonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                ButtonViewHolder(binding)
+                ButtonViewHolder(binding, getIncrementFlag)
             }
             else ->  throw IllegalArgumentException("fuck onCreateViewHolder")
         }
@@ -59,8 +59,12 @@ class CharacterViewHolder(private val binding: ItemCharacterBinding) : RecyclerV
     }
 }
 
-class ButtonViewHolder(private val binding: ItemButtonBinding) : RecyclerView.ViewHolder(binding.root){
+class ButtonViewHolder(private val binding: ItemButtonBinding, val getIncrementFlag: (Int) -> Int) : RecyclerView.ViewHolder(binding.root){
     fun bind(item: CharactersUI.Button){
         binding.bLoad.text = item.titleName
+        binding.bLoad.setOnClickListener {
+            if (bindingAdapterPosition == RecyclerView.NO_POSITION) return@setOnClickListener
+            getIncrementFlag(1)
+        }
     }
 }
