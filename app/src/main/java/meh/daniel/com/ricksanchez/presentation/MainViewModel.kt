@@ -16,10 +16,10 @@ class MainViewModel(private val repository: CharactersRepository) : ViewModel() 
     val charters : LiveData<List<ListItem>> get() = _charters
 
     init {
-        getCharacter()
+        loadCharacter()
     }
 
-    fun getCharacter() {
+    fun loadCharacter() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val characters = repository.getCharacters()

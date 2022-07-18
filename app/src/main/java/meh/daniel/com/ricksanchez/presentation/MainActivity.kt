@@ -11,11 +11,12 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
 
-    private val charactersAdapter = CharactersAdapter(::onClickItemButton)
 
     private val mainViewModel : MainViewModel by viewModels {
         MainViewModelFactory(App.charactersRepository)
     }
+
+    private val charactersAdapter = CharactersAdapter(::onClickItemButton)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onClickItemButton(flag: Boolean) : Boolean {
         mainViewModel.createNewCharacterNumber()
-        mainViewModel.getCharacter()
+        mainViewModel.loadCharacter()
         return flag
     }
 

@@ -10,7 +10,7 @@ private const val BASE_URL = "https://rickandmortyapi.com/api/"
 interface CharactersApi {
 
     companion object{
-        fun createApi() : CharactersApi{
+        fun createApiRickAndMorty() : CharactersApi{
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

@@ -1,7 +1,5 @@
 package meh.daniel.com.ricksanchez.presentation.modelUI
 
-import meh.daniel.com.ricksanchez.data.model.CharactersNW
-
 sealed class ListItem {
     abstract fun getType(): Int
     enum class Type {
@@ -10,7 +8,7 @@ sealed class ListItem {
     }
 }
 
-sealed class CharactersUI : ListItem(){
+sealed class CharactersUI{
     data class Character(val gender: String,
                          val image: String,
                          val name: String) : ListItem() {

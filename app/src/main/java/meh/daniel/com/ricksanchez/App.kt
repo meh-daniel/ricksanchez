@@ -15,6 +15,6 @@ class App : Application() {
         initRepository()
     }
     private fun initRepository() {
-        charactersRepository = CharactersRepositoryImpl(charactersApi = CharactersApi.createApi())
+        charactersRepository = CharactersRepositoryImpl(charactersApi = CharactersApi.createApiRickAndMorty())
     }
 }
